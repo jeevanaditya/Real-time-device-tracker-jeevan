@@ -13,7 +13,7 @@ app.use(helmet({
         useDefaults: true,
         directives: {
             "default-src": ["'self'"],
-            "script-src": ["'self'", "'wasm-unsafe-eval'", "'inline-speculation-rules'", "https://apis.google.com", "https://cdnjs.cloudflare.com", "https://cdn.socket.io"],
+            "script-src": ["'self'", "wasm-unsafe-eval", "inline-speculation-rules", "https://apis.google.com", "https://cdnjs.cloudflare.com", "https://cdn.socket.io"],
             "style-src": ["'self'", "https://cdnjs.cloudflare.com"],
             "connect-src": ["'self'", "https://cdn.socket.io"],
             "img-src": ["'self'", "data:"],
@@ -32,7 +32,7 @@ io.on("connection", function(socket){
     });
 
     socket.on("disconnect", function(){
-        io.emit("user-disconnect")
+        io.emit("user-disconnect", {id: socket.id});
     })
 });
 
